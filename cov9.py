@@ -82,12 +82,14 @@ std_cases = filtered_df['cases'].std()
 median_cases = filtered_df['cases'].median()
 q1_cases = filtered_df['cases'].quantile(0.25)
 q3_cases = filtered_df['cases'].quantile(0.75)
+total_cases = filtered_df['cases'].sum()
 
 mean_deaths = filtered_df['deaths'].mean()
 std_deaths = filtered_df['deaths'].std()
 median_deaths = filtered_df['deaths'].median()
 q1_deaths = filtered_df['deaths'].quantile(0.25)
 q3_deaths = filtered_df['deaths'].quantile(0.75)
+total_deaths = filtered_df['deaths'].sum()
 
 # Calculate the Case Fatality Rate (CFR)
 cfr = (filtered_df['deaths'] / filtered_df['cases']) * 100
@@ -110,16 +112,18 @@ def human_format(num, pos=None):
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.info(f"Cases:\nMean: {mean_cases:.2f} (+/- {std_cases:.2f})\nMedian: {median_cases:.2f} ({q1_cases:.2f}, {q3_cases:.2f})")
+    st.subheader("Cases")
+    st.info(f"Mean: {mean_cases:.2f} (+/- {std_cases:.2f})\nMedian: {median_cases:.2f} ({q1_cases:.2f}, {q3_cases:.2f})\nTotal: {human_format(total_cases)}")
 
 with col2:
-    st.info(f"Deaths:\nMean: {mean_deaths:.2f} (+/- {std_deaths:.2f})\nMedian: {median_deaths:.2f} ({q1_deaths:.2f}, {q3_deaths:.2f})")
+    st.subheader("Deaths")
+    st.info(f"Mean: {mean_deaths:.2f} (+/- {std_deaths:.2f})\nMedian: {median_deaths:.2f} ({q1_deaths:.2f}, {q3_deaths:.2f})\nTotal: {human_format(total_deaths)}")
 
 with col3:
-    st.info(f"CFR:\nMean: {mean_cfr:.2f}% (+/- {std_cfr:.2f}%)\nMedian: {median_cfr:.2f}% ({q1_cfr:.2f}%, {q3_cfr:.2f}%)")
-# Visualization 1: COVID-19 Cases by Country and Deaths by Country (Side by Side)
-st.subheader("Number of COVID-19 Cases and Deaths by Country")
+    st.subheader("CFR%")
+    st.info(f"Mean: {mean_cfr:.2f}% (+/- {std_cfr:.2f}%)\nMedian: {median_cfr:.2f}% ({q1_cfr:.2f}%, {q3_cfr:.2f}%)\nTotal: {mean_cfr:.2f}%")st.subheader("Number of COVID-19 Cases and Deaths by Country")
 
+Viz1
 # Calculate top countries cases and deaths
 top_countries_cases = filtered_df.groupby('countriesAndTerritories')['cases'].sum().nlargest(20)
 top_countries_deaths = filtered_df.groupby('countriesAndTerritories')['deaths'].sum().nlargest(20)
