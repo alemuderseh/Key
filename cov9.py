@@ -76,9 +76,11 @@ if st.checkbox("Display the raw data"):
     st.subheader("COVID-19 Data")
     st.write(filtered_df)
 
-# Calculate mean and sum values for the first table
+# Calculate mean, standard deviation, and sum values for the first table
 mean_cases = filtered_df['cases'].mean()
+std_cases = filtered_df['cases'].std()
 mean_deaths = filtered_df['deaths'].mean()
+std_deaths = filtered_df['deaths'].std()
 sum_cases = filtered_df['cases'].sum()
 sum_deaths = filtered_df['deaths'].sum()
 
@@ -91,15 +93,15 @@ def human_format(num, pos=None):
     else:
         return str(int(num))
 
-# Display mean and sum data boxes only for the first table
+# Display mean (+/- SD) and sum data boxes only for the first table
 col1, col2 = st.columns(2)
 
 with col1:
-    st.info(f"Mean Cases: {mean_cases:.2f}")
+    st.info(f"Mean Cases: {mean_cases:.2f} (+/- {std_cases:.2f})")
     st.info(f"Total Cases: {human_format(sum_cases)}")
 
 with col2:
-    st.info(f"Mean Deaths: {mean_deaths:.2f}")
+    st.info(f"Mean Deaths: {mean_deaths:.2f} (+/- {std_deaths:.2f})")
     st.info(f"Total Deaths: {human_format(sum_deaths)}")
 
 # Visualization 1: COVID-19 Cases by Country and Deaths by Country (Side by Side)
