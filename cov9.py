@@ -121,7 +121,7 @@ with col2:
 
 with col3:
     st.subheader("CFR%")
-    st.info(f"( {Median: {median_cfr:.2f}% ({q1_cfr:.2f}%, {q3_cfr:.2f}%)"))
+    st.info(f"Median: {median_cfr:.2f}% ({q1_cfr:.2f}%, {q3_cfr:.2f}%)")
     
 
 
