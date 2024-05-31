@@ -93,8 +93,6 @@ total_deaths = filtered_df['deaths'].sum()
 
 # Calculate the Case Fatality Rate (CFR)
 cfr = (filtered_df['deaths'] / filtered_df['cases']) * 100
-mean_cfr = cfr.mean()
-std_cfr = cfr.std()
 median_cfr = cfr.median()
 q1_cfr = cfr.quantile(0.25)
 q3_cfr = cfr.quantile(0.75)
@@ -122,7 +120,8 @@ with col2:
 with col3:
     st.subheader("CFR%")
     st.info(f"Median: {median_cfr:.2f}% ({q1_cfr:.2f}%, {q3_cfr:.2f}%)")
-    
+
+st.subheader("Number of COVID-19 Cases and Deaths by Country")
 
 
 #Viz1
