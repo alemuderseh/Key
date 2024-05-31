@@ -121,9 +121,12 @@ with col2:
 
 with col3:
     st.subheader("CFR%")
-    st.info(f"Mean: {mean_cfr:.2f}% (+/- {std_cfr:.2f}%)\nMedian: {median_cfr:.2f}% ({q1_cfr:.2f}%, {q3_cfr:.2f}%)\nTotal: {mean_cfr:.2f}%")st.subheader("Number of COVID-19 Cases and Deaths by Country")
+    st.info(f"Mean: {mean_cfr:.2f}% (+/- {std_cfr:.2f}%)\nMedian: {median_cfr:.2f}% ({q1_cfr:.2f}%, {q3_cfr:.2f}%)\nTotal: {mean_cfr:.2f}%")
+    
+
 
 Viz1
+st.subheader("Number of COVID-19 Cases and Deaths by Country")
 # Calculate top countries cases and deaths
 top_countries_cases = filtered_df.groupby('countriesAndTerritories')['cases'].sum().nlargest(20)
 top_countries_deaths = filtered_df.groupby('countriesAndTerritories')['deaths'].sum().nlargest(20)
