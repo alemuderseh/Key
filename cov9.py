@@ -76,13 +76,26 @@ if st.checkbox("Display the raw data"):
     st.subheader("COVID-19 Data")
     st.write(filtered_df)
 
-# Calculate mean, standard deviation, and sum values for the first table
+# Calculate mean, median, standard deviation, and IQR for cases and deaths
 mean_cases = filtered_df['cases'].mean()
 std_cases = filtered_df['cases'].std()
+median_cases = filtered_df['cases'].median()
+q1_cases = filtered_df['cases'].quantile(0.25)
+q3_cases = filtered_df['cases'].quantile(0.75)
+
 mean_deaths = filtered_df['deaths'].mean()
 std_deaths = filtered_df['deaths'].std()
-sum_cases = filtered_df['cases'].sum()
-sum_deaths = filtered_df['deaths'].sum()
+median_deaths = filtered_df['deaths'].median()
+q1_deaths = filtered_df['deaths'].quantile(0.25)
+q3_deaths = filtered_df['deaths'].quantile(0.75)
+
+# Calculate the Case Fatality Rate (CFR)
+cfr = (filtered_df['deaths'] / filtered_df['cases']) * 100
+mean_cfr = cfr.mean()
+std_cfr = cfr.std()
+median_cfr = cfr.median()
+q1_cfr = cfr.quantile(0.25)
+q3_cfr = cfr.quantile(0.75)
 
 # Helper function to format large numbers consistently
 def human_format(num, pos=None):
@@ -93,17 +106,17 @@ def human_format(num, pos=None):
     else:
         return str(int(num))
 
-# Display mean (+/- SD) and sum data boxes only for the first table
-col1, col2 = st.columns(2)
+# Display mean, median, and IQR data boxes in 3 columns
+col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.info(f"Mean Cases: {mean_cases:.2f} (+/- {std_cases:.2f})")
-    st.info(f"Total Cases: {human_format(sum_cases)}")
+    st.info(f"Cases:\nMean: {mean_cases:.2f} (+/- {std_cases:.2f})\nMedian: {median_cases:.2f} ({q1_cases:.2f}, {q3_cases:.2f})")
 
 with col2:
-    st.info(f"Mean Deaths: {mean_deaths:.2f} (+/- {std_deaths:.2f})")
-    st.info(f"Total Deaths: {human_format(sum_deaths)}")
+    st.info(f"Deaths:\nMean: {mean_deaths:.2f} (+/- {std_deaths:.2f})\nMedian: {median_deaths:.2f} ({q1_deaths:.2f}, {q3_deaths:.2f})")
 
+with col3:
+    st.info(f"CFR:\nMean: {mean_cfr:.2f}% (+/- {std_cfr:.2f}%)\nMedian: {median_cfr:.2f}% ({q1_cfr:.2f}%, {q3_cfr:.2f}%)")
 # Visualization 1: COVID-19 Cases by Country and Deaths by Country (Side by Side)
 st.subheader("Number of COVID-19 Cases and Deaths by Country")
 
