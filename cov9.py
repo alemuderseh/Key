@@ -125,7 +125,7 @@ with col3:
     
 
 
-Viz1
+#Viz1
 st.subheader("Number of COVID-19 Cases and Deaths by Country")
 # Calculate top countries cases and deaths
 top_countries_cases = filtered_df.groupby('countriesAndTerritories')['cases'].sum().nlargest(20)
