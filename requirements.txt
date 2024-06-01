@@ -8,3 +8,4 @@ openpyxl
 plotly.express
 matplotlib.colors
 plotly
+geojson
