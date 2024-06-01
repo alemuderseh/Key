@@ -9,9 +9,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-import plotly.express as px
-import matplotlib.colors as mcolors
-import json
 
 # Load the data
 df = pd.read_excel("COVID_worldwide.xlsx")  # Ensure the file is in the same directory
