@@ -7,3 +7,4 @@ seaborn
 openpyxl
 plotly.express
 matplotlib.colors
+plotly
