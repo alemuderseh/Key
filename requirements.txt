@@ -5,3 +5,5 @@ numpy
 matplotlib
 seaborn
 openpyxl
+plotly.express
+matplotlib.colors
