@@ -11,15 +11,19 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
 import matplotlib.colors as mcolors
+import json
 
 # Load the data
-df = pd.read_excel("COVID_worldwide.xlsx")  # Use the relative path
+df = pd.read_excel("COVID_worldwide.xlsx")  # Ensure the file is in the same directory
 
 # Data cleaning
 df['cases'] = df['cases'].abs()
 df['deaths'] = df['deaths'].abs()
 df['dateRep'] = pd.to_datetime(df['dateRep'], format='%d/%m/%Y')
 df.sort_values(by=['countriesAndTerritories', 'dateRep'], inplace=True)
+
+# Add year column
+df['year'] = df['dateRep'].dt.year
 
 def calculate_cumulative_cases_per_100000(group):
     group['Cumulative_number_for_14_days_of_COVID-19_cases_per_100000'] = (
@@ -28,7 +32,7 @@ def calculate_cumulative_cases_per_100000(group):
     return group
 
 df = df.groupby('countriesAndTerritories', group_keys=False).apply(calculate_cumulative_cases_per_100000)
-df.to_excel("COVID_worldwide.xlsx", index=False)
+df.to_excel("COVID_worldwide.xlsx", index=False)  # Save the updated data back to the Excel file
 
 st.title("Global COVID-19 Data Dashboard")
 
@@ -223,9 +227,7 @@ ax.grid(True)
 st.pyplot(fig)
 
 # Heat map
-import pandas as pd
-import plotly.express as px
-import json
+st.subheader("Heatmap of COVID-19 Cases per 100,000 Population Worldwide")
 
 # Load the Geo-data
 geo_data = pd.read_csv("country_lat_lon.csv")
@@ -265,8 +267,10 @@ fig = px.choropleth(
     hover_name='countriesAndTerritories',
     projection="natural earth"
 )
+
 fig.update_layout(
     title="Heatmap of COVID-19 Cases per 100,000 Population Worldwide",
     coloraxis_colorbar=dict(title="Cases per 100,000 Population")
 )
-fig.show()
+
+st.plotly_chart(fig)
